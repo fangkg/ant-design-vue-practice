@@ -6,36 +6,47 @@
 
 <script>
 import Chart from "../../components/Chart";
-import random from "lodash/random";
+// import random from "lodash/random";
+import axios from "axios";
 
 export default {
   data() {
     return {
-      chartOption: {
-        title: {
-            text: "Echarts 入门实例"
-        },
-        tooltip: {},
-        xAxis: {
-            data: ["A", "B", "C", "D", "E"]
-        },
-        yAxis: {},
-        series: [
-            {
-                name: "a",
-                type: "bar",
-                data: [2, 44, 6, 77, 12]
-            }
-        ]
-      }
+      chartOption: {}
     }
   },
   components: {
     Chart
   },
+  methods: {
+    getChartData() {
+      axios.get("/api/dashboard/chart", { params: { ID: 12345 } }).then(res => {
+        this.chartOption = {
+          title: {
+            text: "Echarts 入门实例"
+          },
+          tooltip: {},
+          xAxis: {
+              data: ["A", "B", "C", "D", "E"]
+          },
+          yAxis: {},
+          series: [
+              {
+                  name: "a",
+                  type: "bar",
+                  data: res.data
+              }
+          ]
+        }
+      })
+    }
+  },
   mounted() {
+    // 初始图表
+    this.getChartData()
     this.interval = setInterval(() => {
-      this.chartOption.series[0].data = this.chartOption.series[0].data.map(() => random(100)) 
+      this.getChartData()
+      // this.chartOption.series[0].data = this.chartOption.series[0].data.map(() => random(100)) 
       // 如果不深度监听chartOption 可以普通监听然后手动修改chartOption变为一个心值
       // this.chartOption = { ...this.chartOption }
     }, 3000)
