@@ -129,7 +129,9 @@ const router = new VueRouter({
 
 // 路由守卫
 router.beforeEach((to, from, next) => {
-  NProgress.start()
+  if (to.path !== from.path) {
+    NProgress.start()
+  }
   next()
 })
 
