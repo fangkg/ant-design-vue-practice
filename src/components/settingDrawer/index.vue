@@ -13,7 +13,7 @@
       :width="300"
     >
       <template v-slot:handle>
-        <div class="handle" @click="visible != visible">
+        <div class="handle" @click="visible = !visible">
             <a-icon :type="visible ? 'close' : 'setting'"></a-icon>
         </div>
       </template>
@@ -78,7 +78,7 @@ export default {
     position: absolute;
     top: 240px;
     right: 300px;
-    width: 100px;
+    width: 48px;
     height: 48px;
     background: #1890ff;
     color: #fff;

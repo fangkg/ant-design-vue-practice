@@ -20,11 +20,13 @@ const routes = [
       {
         path: "/dashboard",
         name: "dashboard",
+        meta: { icon: "dashboard", title: "仪表盘" },
         component: {render: h => h("router-view")},
         children: [
           {
             path: "/dashboard/analysis",
             name: "analysis",
+            meta: { title: "分析页" },
             component: () =>
               import(/* webpackChunkName: "dashboard" */ "../views/dashboard/Analysis")
           }
@@ -36,17 +38,21 @@ const routes = [
     // form
     path: "/form",
     name: "form",
+    meta: { icon: "form", title: "表单" },
     component: { render: h => h("router-view") },
     children: [
       {
         path: "/form/basic-form",
         name: "basicform",
+        meta: { title: "基础表单" },
         component: () =>
           import(/* webpackChunkName: "form" */ "../views/form/Basicform")
       },
       {
         path: "/form/step-form",
         name: "stepform",
+        meta: { title: "分步表单" },
+        hideChildrenInMenu: true,
         component: () =>
           import(/* webpackChunkName: "form" */ "../views/form/stepform"),
         children: [
@@ -78,6 +84,7 @@ const routes = [
   },
   {
     path: "/user",
+    hideInMenu: true,
     // component: RenderRouterView,
     // component: { render: h=> h("router-view")},
     component: () =>
@@ -118,6 +125,7 @@ const routes = [
   {
     path: "*",
     name: "404",
+    hideInMenu: true,
     component: () => 
       import(/* webpackChunkName: "404" */ "../views/404.vue")
   }

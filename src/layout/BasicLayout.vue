@@ -5,9 +5,10 @@
         v-if="navLayout === 'left'"
         v-model="collapsed" 
         collapsible 
-        :trigger="null">
+        :trigger="null"
+        :theme="navTheme">
         <div class="logo">Ant Design Vue Pro</div>
-        <SideMenu/>
+        <SideMenu :theme="navTheme"/>
       </a-layout-sider>
       <a-layout>
         <a-layout-header style="background: #fff; padding: 0">
@@ -75,10 +76,10 @@ export default {
   background: #eeeeee;
 }
 .logo {
-  height: 64px;
-  line-height: 64px;
+  height: 32px;
+  line-height: 32px;
   text-align: center;
-  overflow: height;
+  overflow: hidden;
 }
 .nav-theme-dark >>> .logo {
   color: #ffffff;
