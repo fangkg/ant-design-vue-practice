@@ -7,7 +7,8 @@
 <script>
 import Chart from "../../components/Chart";
 // import random from "lodash/random";
-import axios from "axios";
+// import axios from "axios";
+import request from "../../utils/request"
 
 export default {
   data() {
@@ -20,25 +21,32 @@ export default {
   },
   methods: {
     getChartData() {
-      axios.get("/api/dashboard/chart", { params: { ID: 12345 } }).then(res => {
-        this.chartOption = {
-          title: {
-            text: "Echarts 入门实例"
-          },
-          tooltip: {},
-          xAxis: {
-              data: ["A", "B", "C", "D", "E"]
-          },
-          yAxis: {},
-          series: [
-              {
-                  name: "a",
-                  type: "bar",
-                  data: res.data
-              }
-          ]
-        }
-      })
+      // 使用封装request
+      request({
+        url: "/api/dashboard/chart",
+        method: "get",
+        params: { ID: 12345 }
+      }).then(res => {
+          this.chartOption = {
+            title: {
+              text: "Echarts 入门实例"
+            },
+            tooltip: {},
+            xAxis: {
+                data: ["A", "B", "C", "D", "E"]
+            },
+            yAxis: {},
+            series: [
+                {
+                    name: "a",
+                    type: "bar",
+                    data: res.data
+                }
+            ]
+          }
+        });
+      // 使用axios
+      // axios.get("/api/dashboard/chart", { params: { ID: 12345 } })
     }
   },
   mounted() {
