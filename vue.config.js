@@ -8,6 +8,13 @@ module.exports = {
             }
         }
     },
+    chainWebpac: config => {
+        const svgRule = config.module.rule("svg")
+        // 清除已有loader 防止后面loader附加在该规则现有的loader之后
+        svgRule.uses.clear()
+        // 添加要替换的loader
+        svgRule.use("vue-svg-loader").loader("vue-svg-loader")
+    },
     devServer: {
         proxy: {
             "/api": {
