@@ -12,6 +12,29 @@
           }]" 
           placeholder="请输入付款账号！"/>
       </a-form-item>
+      <a-form-item 
+        label="收款账户" 
+        :labelCol="formItemLayout.labelCol"
+        :wrapperCol="formItemLayout.wrapperCol">
+        <!-- <a-input 
+          v-decorator="['receiveAccount', {
+            initalValue: step.receiveAccount,
+            rules: [{ required: true, message: '请输入收款账号！' }]
+          }]" 
+          placeholder="请输入收款账号！"/> -->
+          <ReceiveAccount
+            v-decorator="['receiveAccount', {
+              initalValue: step.receiveAccount,
+              rules: [{ required: true, message: '请输入收款账号！', validator: (rule, value, callback) => {
+                if (value && value.number) {
+                  callback();
+                } else {
+                  callback(false);
+                }
+              } }]
+            }]" 
+            placeholder="请输入收款账号！"/>
+      </a-form-item>
       <a-form-item>
         <a-button type="primary" @click="handleSubmit">下一步</a-button>
       </a-form-item>
@@ -20,7 +43,11 @@
 </template>
 
 <script>
+import ReceiveAccount from "../../../components/ReceiverAccount"
 export default {
+  components: {
+    ReceiveAccount
+  },
   data() {
     this.form = this.$form.createForm(this);
     return {
